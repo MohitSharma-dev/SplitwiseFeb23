@@ -1,17 +1,22 @@
 package com.example.splitwisefeb23.command;
 
 import com.example.splitwisefeb23.controllers.SettleUpController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentMap;
 
+@Component
 public class CommandExecutor {
     List<Command> commands;
+    SettleUpGroupCommand settleUpGroupCommand;
 
-    public CommandExecutor(){
+    @Autowired
+    public CommandExecutor(SettleUpGroupCommand settleUpGroupCommand){
+        this.settleUpGroupCommand = settleUpGroupCommand;
         commands = new ArrayList<>();
-        commands.add(new SettleUpUserCommand(new SettleUpController()));
+        commands.add(this.settleUpGroupCommand);
     }
 
     public void addCommand(Command command){

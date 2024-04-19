@@ -22,6 +22,6 @@ public class Expense extends BaseModel{
     @ManyToOne
     private Group group;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER , mappedBy = "expense")
     List<ExpenseUser> expenseUsers;
 }

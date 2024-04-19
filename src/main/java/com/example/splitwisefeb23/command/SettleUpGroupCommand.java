@@ -1,6 +1,8 @@
 package com.example.splitwisefeb23.command;
 
 import com.example.splitwisefeb23.controllers.SettleUpController;
+import com.example.splitwisefeb23.dtos.SettleUpGroupRequestDTO;
+import com.example.splitwisefeb23.dtos.SettleUpGroupRespnseDTO;
 import com.example.splitwisefeb23.dtos.SettleUpUserRequestDTO;
 import com.example.splitwisefeb23.dtos.SettleUpUserResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +10,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 @Component
-public class SettleUpUserCommand implements Command{
+public class SettleUpGroupCommand implements Command{
+    @Autowired
     private SettleUpController settleUpController;
 
-    SettleUpUserCommand(SettleUpController settleUpController){
-      this.settleUpController = settleUpController;
-    }
     @Override
     public boolean matches(String input) {
         List<String> words = List.of(input.split(" "));
         System.out.println(words);
-        if(words.size() == 2 && words.get(0).equals("SettleUpUser")){
+        if(words.size() == 2 && words.get(0).equals("SettleUpGroup")){
             return true;
         }
         return false;
@@ -27,11 +27,12 @@ public class SettleUpUserCommand implements Command{
     @Override
     public void execute(String input) {
         List<String> words = List.of(input.split(" "));
-        Long userId =  Long.valueOf(words.get(1));
+        Long groupId =  Long.valueOf(words.get(1));
 
-        SettleUpUserRequestDTO request = new SettleUpUserRequestDTO();
-        request.setUserId(userId);
+        SettleUpGroupRequestDTO request = new SettleUpGroupRequestDTO();
+        request.setGroupId(groupId);
 
-        SettleUpUserResponseDTO settleUpUserResponseDTO =  settleUpController.settleUpUser(request);
+        SettleUpGroupRespnseDTO response =  settleUpController.settleUpGroup(request);
+        System.out.println(response.getTransactions());
     }
 }

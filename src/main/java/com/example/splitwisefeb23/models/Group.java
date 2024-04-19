@@ -13,7 +13,7 @@ public class Group extends BaseModel{
 
     @ManyToMany
     private List <User> members;
-    @OneToMany
+    @OneToMany(mappedBy = "group")
     private List <Expense> expenses;
 
     @ManyToOne

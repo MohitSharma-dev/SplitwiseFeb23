@@ -1,5 +1,6 @@
 package com.example.splitwisefeb23.services;
 
+import com.example.splitwisefeb23.Utik.Transaction;
 import com.example.splitwisefeb23.models.Expense;
 import com.example.splitwisefeb23.models.ExpenseUser;
 import com.example.splitwisefeb23.models.Group;
@@ -55,12 +56,12 @@ public class SettleUpService {
         }
         // 3. Iterate through all the expenses to find out who owes what
         // 4. Find the transactions to be done
-        List<Expense> transactions =  settleUpStrategy.settleUp(expenseSet.stream().toList());
+//        List<Expense> transactions =  settleUpStrategy.settleUp(expenseSet.stream().toList());
         // 5. return transactions
-        return transactions;
+        return null;
     }
 
-    public List<Expense> settleUpGroup(
+    public List<Transaction> settleUpGroup(
             Long groupId
     ){
         // 1. validate the Group
@@ -71,9 +72,10 @@ public class SettleUpService {
         Group group = groupOptional.get();
         // 2. Extract out all the expenses
         List<Expense> expenses = expenseRepository.findAllByGroup(group);
+        System.out.println(expenses);
         // 3. Iterate through all the expenses to find out who owes what
         // 4. Find the transactions to be done
-        List<Expense> transactions = settleUpStrategy.settleUp(expenses);
+        List<Transaction> transactions = settleUpStrategy.settleUp(expenses);
         // 5. return transactions
         return transactions;
 
@@ -94,3 +96,15 @@ public class SettleUpService {
 // ExpenseUser 3
 // Expense 1 : A : Had to pay : 750
 // ExpenseUser 4
+
+// Expense 1
+// whoPaid :
+    // A : 1000 , B : 500
+// whoHadtoPay :
+    // A : 250 , B : 1000 , C : 250
+
+// ExpenseUser1
+// Expense : Expense1 , User : A , amt : 1000
+
+// ExpenseUser2
+// Expense : Expense1 , User : A , amt : 250

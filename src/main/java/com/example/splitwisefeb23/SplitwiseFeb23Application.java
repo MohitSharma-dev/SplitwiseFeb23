@@ -1,6 +1,7 @@
 package com.example.splitwisefeb23;
 
 import com.example.splitwisefeb23.command.CommandExecutor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,12 +12,12 @@ import java.util.Scanner;
 @EnableJpaAuditing
 @SpringBootApplication
 public class SplitwiseFeb23Application implements CommandLineRunner {
+    @Autowired
     private CommandExecutor commandExecutor;
     private Scanner sc = new Scanner(System.in);
 
-    SplitwiseFeb23Application(){
-        commandExecutor = new CommandExecutor();
 
+    SplitwiseFeb23Application(){
     }
     @Override
     public void run(String... args) throws Exception {
